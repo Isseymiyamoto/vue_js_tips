@@ -1,2 +1,120 @@
 # vue_js_tips
 vue.jsに関する基礎知識をまとめる
+
+
+## 読み込み
+
+CDNを用いる場合は、scriptタグで囲む
+```
+<script src="https://unpkg.com/vue@2.5.21"></script>
+```
+
+## vueコンストラクタ
+
+vueインスタンスを生成する際に、コンストラクタ(swiftでいうinitで渡す引数部分)にオブジェクトを渡す
+
+ex.
+```
+new Vue({
+  el: '#app',
+  data: {
+    message: "hello world"
+  }
+})
+```
+
+### オブジェクト内の各オプションの説明
+
+ 
+
+#### elオプション: 
+
+・ vue.jsのインスタンスを適応するDOM要素を指定する(マウントという)
+
+・ マウント対象のDOMは、CSSセレクタかDOM要素のオブジェクトを渡して指定する。(DOM要素のオブジェクトとは、document.getElementByIdメソッドなどで取得したオブジェクトをさす)
+
+・ マウントすることでその要素内をvueインスタンスで操作できるようになる。
+
+・ vueインスタンスの生成時に存在しなかったDOM要素に対しては、後から動的にマウントしたい場合は以下のようにする
+
+```
+// 変数名のvmは,vue Modelの略で慣例的に使用される
+const vm = new new Vue({
+  data: {
+    message: "hello world"
+  }
+})
+
+vm.$mount = ('#app')
+```
+
+#### dataオプション:
+
+・dataオプションではvueインスタンスで扱うデータを定義する
+
+・オブジェクトの形式で定義する。オブジェクトの各プロパティを変数としてvueで扱うことができる。
+
+ex
+```
+// index.html
+<div id="app">
+  {{ message }}
+</div>
+
+// main.js
+new Vue({
+  el: '#app',
+  data: {
+    message: "hello world"
+  }
+})
+```
+
+・ html内にて、{{}}でプロパティを括ることでデータを展開できる。これをマスタッシュ記法という
+
+・ dataオプションにはオブジェクトの他に関数を渡すこともできる。関数を渡した場合は、関数の戻り値でdataが初期化される
+
+ex
+```
+new Vue({
+  el: '#app',
+  data: function() {
+    return {
+      message: "hello world" 
+    }
+  }
+})
+
+// functionの省略形 & dev toolにおけるconsoleからのvueインスタンスアクセス方法
+
+const vm = new Vue({
+  el: '#app',
+  data() {
+    return {
+      message: "hello world" 
+    }
+  }
+})
+
+window.vm = vm
+
+// consoleにおいて
+
+vm.$data.message
+-> "hello world"
+
+vm.$data.message = "change"
+-> "change" //かつこの部分が再描画される
+
+```
+
+・ vue.js ではデータへの代入と参照を監視しており、新しい値が代入されたことを検知して部分的に画面を再描画する機能が備わっている(リアクティブシステム) 
+
+
+
+
+
+
+
+
+
