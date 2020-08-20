@@ -188,6 +188,45 @@ const vm = new Vue({
 window.vm = vm
 ```
 
+#### ディレクティブ
 
+・HTMLタグの属性として設定できるvue.js独自の拡張機能
+
+#### v-bindディレクティブ
+
+・HTMLタグの属性値にデータの値を設定できる
+
+ex. HTMLタグのtitle属性にメッセージのデータの値を設定する(title属性を設定するとマウスポインタを合わせた場合に、属性値のテキストがポップアップで表示される)
+
+```
+
+<div id="app">
+  <p v-bind:title = "message">
+  マウスポインタを当ててください
+  </p>
+</div>
+
+// main.js
+
+const vm = new Vue({
+  el: '#app',
+  data() {
+    return {
+      message: "hello world" 
+    }
+  }
+})
+
+window.vm = vm
+
+```
+
+・v-bind:の後に属性値を指定する。上記ではtitle属性。
+
+・その後に=""で任意の文字列を指定している。v-bindでは、""で渡された文字列は文字列として評価されるのではなく、javascriptの式として評価される
+
+・上記のように書くことで、vmのmessageプロパティの値を使用することができる
+
+・省略記法では、上記を例にとると、<p :title="message"></p>と書くこともできる
 
 
