@@ -111,6 +111,45 @@ vm.$data.message = "change"
 ・ vue.js ではデータへの代入と参照を監視しており、新しい値が代入されたことを検知して部分的に画面を再描画する機能が備わっている(リアクティブシステム) 
 
 
+#### Vueインスタンスの$watchメソッド
+
+・$watchメソッドを使用することで、データの値を監視して、データが変わったタイミングで特定のコールバック関数を実行することができる
+
+・開発時の動作確認やログ出力などに活用できる
+
+ex. messageの値の変更を監視する
+
+ex
+```
+// index.html
+<div id="app">
+  {{ message }}
+</div>
+
+// main.js
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      message: "Hello, world!" 
+    }
+  }
+})
+
+window.vm = vm
+
+vm.$watch(function(){
+  return this.message
+}, function(message){
+  console.log("変更後の値: " + message)
+})
+```
+
+・上記のように$watchメソッドは引数に二つの関数を受け取る
+
+・第一引数の関数では、監視対象のデータを返す関数をセットする。上記でのthis.messageにおけるthisは、Vueインスタンスを表している(swiftでいうselfと同様)。this.messageでdataで定義したmessageにアクセスできる
+
+・第二引数には、値が変わった場合に呼び出されるコールバック関数をセットする。コールバック関数の第一引数には、変更後の値が渡されることになる
 
 
 
