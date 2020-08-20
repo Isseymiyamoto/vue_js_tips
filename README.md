@@ -111,15 +111,13 @@ vm.$data.message = "change"
 ・ vue.js ではデータへの代入と参照を監視しており、新しい値が代入されたことを検知して部分的に画面を再描画する機能が備わっている(リアクティブシステム) 
 
 
-#### Vueインスタンスの$watchメソッド
+#### $watchメソッド
 
 ・$watchメソッドを使用することで、データの値を監視して、データが変わったタイミングで特定のコールバック関数を実行することができる
 
 ・開発時の動作確認やログ出力などに活用できる
 
 ex. messageの値の変更を監視する
-
-ex
 ```
 // index.html
 <div id="app">
@@ -127,7 +125,7 @@ ex
 </div>
 
 // main.js
-new Vue({
+const vm = new Vue({
   el: '#app',
   data() {
     return {
@@ -152,7 +150,43 @@ vm.$watch(function(){
 ・第二引数には、値が変わった場合に呼び出されるコールバック関数をセットする。コールバック関数の第一引数には、変更後の値が渡されることになる
 
 
+#### watchオプション
 
+・$watchメソッドと機能は同様
+
+・watchプロパティ内で定義したプロパティ名をデータのプロパティ名と一致させることで、データを監視する
+
+・dataの名前と、watchに定義したメソッド名を合わせることでdataの変更時にメソッドが実行される
+
+
+ex. numbersというデータをwatchプロパティで監視する、numbersの値が変更されるたびにその値に準じて、total_numが再計算される
+```
+// index.html
+
+<div id="app">
+  {{ message }}
+</div>
+
+// main.js
+
+const vm = new Vue({
+  el: '#app',
+  data: {
+   numbers: [],
+   total_num: 0
+  },
+  watch: {
+    numbers(value){
+      this.total_num = 0
+      this.numbers.forEach(number => {
+          this.total_num += number
+      })
+    }
+  }
+})
+
+window.vm = vm
+```
 
 
 
