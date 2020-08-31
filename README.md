@@ -4,7 +4,7 @@ vue.jsに関する基礎知識をまとめる
 
 ## 読み込み
 
-CDNを用いる場合は、scriptタグで囲む
+CDNを用いる場合は、scriptタグで囲む(headerタグ内で)
 ```
 <script src="https://unpkg.com/vue@2.5.21"></script>
 ```
