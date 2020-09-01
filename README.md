@@ -301,4 +301,41 @@ window.vm = vm
 ・表示の際のデータの加工はなるべくフィルターで定義するようにする
 
 
+#### computedプロパティ
+
+・算出プロパティとも呼ばれ、特定のデータを加工したものをvueインスタンスのプロパティとして公開するもの
+
+// buttonの表示を変える
+
+```
+
+<div id="app">
+<button :disabled="button_disabled">{{ button_label }}</button>
+</div>
+
+
+// main.js
+
+const vm = new Vue({
+  el: '#app',
+  data() {
+    return {
+      button_disabled: true
+    }
+  },
+  computed: {
+    button_label(){
+    return this.button_disabled ? "無効" : "有効"
+    }
+}
+})
+
+window.vm = vm
+
+```
+
+・computedプロパティは、データが変更されない限りキャッシュの値を返すようになっている→何度も処理や計算を行わず効率的
+
+
+
 
