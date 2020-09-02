@@ -4,7 +4,7 @@ vue.jsに関する基礎知識をまとめる
 
 ## 読み込み
 
-CDNを用いる場合は、scriptタグで囲む(headerタグ内で)
+CDNを用いる場合は、scriptタグで囲む(bodyの閉じタグの手前で)
 ```
 <script src="https://unpkg.com/vue@2.5.21"></script>
 ```
@@ -335,6 +335,97 @@ window.vm = vm
 ```
 
 ・computedプロパティは、データが変更されない限りキャッシュの値を返すようになっている→何度も処理や計算を行わず効率的
+
+
+#### v-onディレクティブとmethodsプロパティ
+
+・v-onディレクティブ：HTML要素で発生したイベントを検知して、主に特定のメソッドを呼び出す際に使用される
+ex. buttonがクリックされたらフォームの内容を送信する
+
+・methodsプロパティ：v-onディレクティブによって呼び出されるメソッドを定義しておくもの。methodsプロパティで定義したメソッドはv-onディレクティブ以外からも呼び出すことはできるが、基本的にはv-onとセットで考える
+
+・v-on:click="メソッド名"でクリックした際に当該メソッドを呼び出すことになる
+
+ex. consoleにログを出力する
+
+```
+
+// html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="clickLog">
+        ログ
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.5.21"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
+
+// main.js
+
+const vm = new Vue({
+  el: "#app",
+  data() {
+    return {
+      message: "hello world!"
+    };
+  },
+  methods: {
+    clickLog() {
+      console.log("clicked");
+    }
+  }
+});
+
+window.vm = vm;
+
+
+
+```
+
+ex. イベントオブジェクトを受け取って出力(jsのみ、htmlは上と同じ)
+
+```
+const vm = new Vue({
+  el: "#app",
+  data() {
+    return {
+      message: "hello world!"
+    };
+  },
+  methods: {
+    clickLog(event) {
+      console.log(event);
+      console.log(event.target)
+    }
+  }
+});
+
+window.vm = vm;
+
+
+```
+
+・method内でもthisを使用することでvueインスタンスにアクセスすることができる
+
+・トリガーにできるイベントは、click以外にもたくさんある
+
+・v-onの省略記法　 v-on:トリガー名="メソッド名"　→ @トリガー名="メソッド名"
+
+```
+<button @click="clickLog"></button>
+```
 
 
 
