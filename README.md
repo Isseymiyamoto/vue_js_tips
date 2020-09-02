@@ -427,6 +427,66 @@ window.vm = vm;
 <button @click="clickLog"></button>
 ```
 
+#### v-ifディレクティブとv-showディレクティブ
+
+・HTML要素の表示、非表示を切り替える際に使用するv-ifディレクティブとv-showディレクティブ
+
+・v-showではcssの値を変更することで表示非表示を変更しているが、v-ifでは要素そのものを削除、作成を行っている
+
+・頻繁に表示、非表示が切り替わる場合は、v-show, ほとんど切り替えが生じない場合は、v-if
+
+
+// ex. チェックがされている場合に日付入力の項目を表示し、反対では非表示にする(v-showの部分をv-ifにすることでも同様の効果が得られる)
+
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label>
+          <input type="checkbox" v-model="reserve">予約する
+        </label>
+      </div>
+      <div v-show="reserve">
+        予約日：<input type="date">
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.5.21"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
+
+
+// main.js
+
+const vm = new Vue({
+  el: "#app",
+  data() {
+    return {
+      reserve: false
+    };
+  },
+  methods: {
+    clickLog(event) {
+      console.log(event);
+      console.log(event.target)
+    }
+  }
+});
+
+window.vm = vm;
+
+
+```
+
 
 
 
