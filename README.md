@@ -595,4 +595,68 @@ window.vm = vm;
 ```
 
 
+#### v-modelディレクティブ
+
+・主にフォームの入力値とvueインスタンスのデータを連動させるために使用する
+
+・双方向バインディングという概念：フォームとjavascriptのデータが同期され、双方向に変更が反映されるというもの
+
+ex. フォームの送信
+
+```
+<div id="app">
+  <div>
+    <label>
+      <span>名前：</span>
+      <input v-model="name" />
+    </label>
+  </div>
+  <div>
+    <label>
+      <span>メールアドレス：</span>
+      <input v-model="email" />
+    </label>
+  </div>
+  <div>
+    <label>
+      <span>お問い合わせ内容：</span>
+      <input v-model="text" />
+    </label>
+  </div>
+  <button @click="submit">送信</button>
+</div>
+
+// main.js
+
+const vm = new Vue({
+  el: "#app",
+  data: {
+    name: "ISSEY MIYAKAE",
+    email: "test@gmail.com",
+    text: "xxxについて"
+  },
+  methods: {
+    submit() {
+      const inquiry = `
+      次の問い合わせ内容を送信しました。
+
+      [名前]
+      ${this.name}
+      [メールアドレス]
+      ${this.email}
+      [お問い合わせ内容]
+      ${this.text}
+      `;
+      alert(inquiry);
+    }
+  }
+});
+
+window.vm = vm;
+
+
+
+```
+
+
 
