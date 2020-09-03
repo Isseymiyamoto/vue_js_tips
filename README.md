@@ -487,6 +487,48 @@ window.vm = vm;
 
 ```
 
+#### v-if, v-else-if, v-elseディレクティブを使用した条件分岐
+
+・条件分岐における表示の出しわけについて
+
+・v-if="message" → messageのテキストデータがあるか確認
+
+・v-elseはv-ifから始まる要素に隣り合わせる必要がある
+
+
+// ex message dataによって表示を分岐
+
+```
+<div id="app">
+  <div v-if="message">
+    {{ message }}
+  </div>
+  <div v-else-if="message === ''">
+    メッセージが空文字です
+  </div>
+  <div v-else>
+    メッセージがありません
+  </div>
+</div>
+
+//main.js
+
+const vm = new Vue({
+  el: "#app",
+  data() {
+    return {
+      message: "hello world!"
+    };
+  }
+});
+
+window.vm = vm;
+
+
+
+
+```
+
 
 
 
