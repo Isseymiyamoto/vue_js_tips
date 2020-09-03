@@ -525,10 +525,62 @@ const vm = new Vue({
 window.vm = vm;
 
 
+```
 
+#### v-forディレクティブ
+
+・配列のデータをレンダリングする際に使用する
+
+・複数あるデータを一覧表示する際に頻繁に使用される
+
+
+// ex . todos配列を用いて、todoを表示する
 
 ```
 
+<div id="app">
+  <h2>Todos:</h2>
+  <ol>
+    <li v-for="todo in todos">
+      <label>
+        <input
+          type="checkbox"
+          v-on:change="toggle(todo)"
+          v-bind:checked="todo.done"
+        />
 
+        <del v-if="todo.done">
+          {{ todo.text }}
+        </del>
+        <span v-else>
+          {{ todo.text }}
+        </span>
+      </label>
+    </li>
+  </ol>
+</div>
+
+// main.js
+
+const vm = new Vue({
+  el: "#app",
+  data: {
+    todos: [
+      { text: "Learn Javascript", done: false },
+      { text: "Learn Vue", done: false },
+      { text: "Play around Xcode playground", done: true },
+      { text: "Learn Swift", done: true }
+    ]
+  },
+  methods: {
+    toggle: function(todo) {
+      todo.done = !todo.done;
+    }
+  }
+});
+
+window.vm = vm;
+
+```
 
 
