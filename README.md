@@ -654,6 +654,43 @@ const vm = new Vue({
 
 window.vm = vm;
 
+```
+
+#### templateオプション
+
+・Vueインスタンスのオプションにテンプレートを記載できるtemplateオプション
+
+//ex
+
+```
+<div id="app"></div>
+
+//main.js
+
+const vm = new Vue({
+  el: "#app",
+  template: `
+  <div v-if="message">
+    {{ message }}
+  </div>
+  <div v-else-if="message === ''">
+    メッセージが空文字です
+  </div>
+  <div v-else>
+    メッセージがありません
+  </div>
+  `,
+  data() {
+    return {
+      message: "hello world!"
+    };
+  }
+});
+
+window.vm = vm;
+
+
+
 
 
 ```
