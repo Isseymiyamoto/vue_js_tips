@@ -581,6 +581,18 @@ const vm = new Vue({
 
 window.vm = vm;
 
+
 ```
+
+・keyの指定について、vue.jsが繰り返し処理にて各要素を区別するためにkeyを設定することが推奨されている
+
+・keyは一意に決定されるuniqueなidが好ましい
+
+・以下のようにkeyを指定する。以下では、todoで同じ文言が来る可能性があるのであまりよろしいkeyの設定とは言えない
+
+```
+<li v-for="todo in todos" :key="todo.text">
+```
+
 
 
