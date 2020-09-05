@@ -864,3 +864,67 @@ const vm = new Vue({
 
 
 ```
+
+#### コンポーネントのローカル登録とグローバル登録
+
+・Vue.componentで登録したコンポーネントはグローバル登録、どこからでも使える → 使わない場合でもコンポーネントの読み込みが発生してしまい、ビルドの時間がかかるなどの弊害あり
+
+・ローカル登録はVueインスタンスのcomponentsオプションで登録する → 登録したvueインスタンス配下でしか使用できない
+
+・ローカル登録では、components: { コンポーネント名: コンポーネントのオブジェクト } の形式で登録する
+
+・ローカル登録の場合は、登録先コンポーネントないのテンプレートからしか呼び出すことができない
+
+・特に理由がなけレバ、ローカル登録が推奨
+
+ex. 上記コードをローカル登録に変更した場合
+```
+<div id="app">
+  <user-list></user-list>
+</div>
+
+// main.js
+
+const ListTitle = {
+  template: `
+  <h2>ユーザーリスト</h2>
+  `
+};
+
+const UserList = {
+  components: {
+    "list-title": ListTitle
+  },
+  data() {
+    return {
+      users: [
+        { id: 1, name: "ユーザー1" },
+        { id: 2, name: "ユーザー2" },
+        { id: 3, name: "ユーザー3" },
+        { id: 4, name: "ユーザー4" },
+        { id: 5, name: "ユーザー5" }
+      ]
+    };
+  },
+  template: `
+  <div>
+    <list-title></list-title>
+    <ul>
+      <li v-for="user in users" :key="user.id">
+        {{ user.name }}
+      </li>
+    </ul>
+  </div>
+  `
+};
+
+const vm = new Vue({
+  el: "#app",
+  components: {
+    "user-list": UserList
+  }
+});
+
+
+
+```
