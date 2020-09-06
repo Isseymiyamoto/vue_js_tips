@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">ホーム</router-link>|
-      <router-link to="/about">このサイトについて</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click.stop="openSideMenu"></v-app-bar-nav-icon>
+      <v-toolbar-title class="headerline text-uppercase"></v-toolbar-title>
+      <span>マイアドレス帳</span>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+    <SideNav />
+
+    <v-main></v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import SideNav from "./components/SideNav";
+export default {
+  name: "App",
+  components: {
+    SideNav
+  },
+  data: () => ({
+    //
+  }),
+  methods: {
+    openSideMenu() {
+      this.$store.dispatch("toggleSideMenu");
     }
   }
-}
-</style>
+};
+</script>
